@@ -9,9 +9,9 @@ a:hover {
 
 /* Title Component */
 #title li {
-    display: inline;
-    padding: 10px 10px 10px 10px;
-}
+  display: inline;
+  padding: 10px 10px 10px 10px;
+  }
 
 /*
  * Base structure
@@ -19,6 +19,7 @@ a:hover {
 
 html,
 body {
+  min-width: 100%;
   height: 100%;
   /*overflow: hidden;*/
   background: #ffffff;
@@ -31,13 +32,14 @@ body {
 .site-wrapper {
   background: white;
   display: table;
-  width: 100%;
-  height: 85%; /* For at least Firefox */
-  /*min-height: 100%;*/
+  min-width: 100%;
+  min-height: 85%; /* For at least Firefox */
+  min-height: 100%;
   /*-webkit-box-shadow: inset 0 0 5rem rgba(0,0,0,.5);
           box-shadow: inset 0 0 5rem rgba(0,0,0,.5);*/
 }
 .site-wrapper-inner {
+  min-width: 100%;
   display: table-cell;
   vertical-align: top;
 }
@@ -87,6 +89,28 @@ body {
 }
 
 /* NavBar */
+@media screen and (max-width: 600px){
+  
+  .nav-link{
+    float: right;
+    padding-right: 40%;
+    padding-left: 50%;
+    margin-right: 50%;
+    margin-left: 50%;
+    text-align: center;
+
+  }
+  .nav-bar{
+  
+    padding: 0px;
+    padding-bottom: 5em;
+    text-align: center;
+
+  }
+ 
+
+}
+
 .nav-bar {
     /*padding: 2em; */
     /* padding-bottom: 3.5em; */
@@ -112,12 +136,18 @@ h1 {
   color: #4fd5f5;
   margin-top: 14px;
 }
+
+
+
+
+
+
 /*
  * Cover
  */
 
 .cover {
-  padding: 0 1.5rem;
+  /*padding: 0 1.5rem;*/
 }
 .cover .btn-lg {
   padding: .75rem 1.25rem;
@@ -288,6 +318,41 @@ h1 {
 }
 
 /*workflow examples*/
+@media screen and (max-width: 700px){
+  #slideleft, #slideright {
+    display: none;
+    height: 100%;
+
+  }
+
+  #examplecontainer{
+    width: 100%;
+  
+    margin: auto;
+
+  }
+
+  .workflowexample{
+
+    min-width: 100%;
+    height: 250px;
+
+  }
+
+  .workflowexample img{
+    width: 200px;
+    height: 200px;
+    float:left;
+  }
+
+  .workflowexample .spinner{
+    width: 200px;
+    height: 200px;
+    float:left;
+
+  }
+
+}
 .workflowexample  {
   width:20%;
   height:250px;
@@ -296,6 +361,7 @@ h1 {
 }
 
 #slideleft, #slideright  {
+  visibility: show;
   width:10%;
   height: 100%;
   margin: 0 auto;
@@ -308,6 +374,7 @@ h1 {
 }
 
 .workflowexample img {
+
   width:200px;
   height:200px;
 }
@@ -356,8 +423,12 @@ h1 {
 
 /*disclaimer*/
 .disclaimer  {
-    bottom: 5px;
-    position: fixed;
+    margin-top: 1%;
+    bottom: 1%;
     text-align: center;
     width: 100%;
+    float: left;
 }
+
+
+
