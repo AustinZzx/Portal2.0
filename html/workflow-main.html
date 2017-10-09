@@ -246,6 +246,14 @@
             <span id="fileDownload" class="glyphicon glyphicon-cloud-download"></span>
             <p id="DownloadLink">Download</p>
         </a>
+         <button id="Visualize-variable-link" target="_blank" class="btn">
+             <span id="fileVisualize" class="glyphicon glyphicon-search"></span>
+             <p id="VisualizeLink">Visualize</p>
+        </button>
+         <button id="Compare-variable-link" target="_blank" class="btn">
+             <span id="compareVisualize" class="glyphicon glyphicon-list-alt"></span>
+             <p id="CompareLink">Compare</p>
+         </button>
         <div class="panel-heading"> 
                     <span class="glyphicon glyphicon-remove-sign pull-right "></span>
                     
@@ -311,7 +319,24 @@
     </div>
 </div>  
 
+<div id="executions" style='display:none; font-size:17px; display:none'>
+        <p>Select execution trace to compare:</p>
+        <p><select id="execution_select"></select></p>
+    </div>
+
+<div id="compare-data" class="panel-group-info" style="width:35%;float:left;margin-top:20px;display:none">
+     <div class="row">
+         <div class="col-md-12">
+             <button class="btn btn-success">Compare Data</button>
+          </div>
+      </div>
+  </div>  
+
     <script src="https://cdn.jsdelivr.net/npm/lazyload@2.0.0-beta.1/lazyload.js"></script>
+
+     <script type="text/javascript">
+        var executions_id = {};
+    </script>
     
     <script type="text/javascript" src="../js/jquery-latest.js">
     </script>

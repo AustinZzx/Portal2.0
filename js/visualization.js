@@ -334,6 +334,7 @@ var translateVisualization = function() {
 
 var addTraces = function(traces) {
     var select = document.getElementById("dropdown-content");
+    var execution = document.getElementById("execution_select");
 
     //populates selection box options
     for(var i = 0; i < traces.length; i++) {
@@ -342,8 +343,16 @@ var addTraces = function(traces) {
         el.textContent = stripNameFromURI(opt.execution.value);
         el.value = opt.execution.value;
         select.appendChild(el);
+        if (i == 0)
+        {
+            execution.appendChild(el);
+            console.log(el);
+        }
+        
+        executions_id[el.textContent] = opt.execution.value;
     }
     $("#dropdown-content a").on('click', function() {
+        selected_execution_id = select.options[select.selectedIndex].text;
         document.getElementById('execution-name').innerHTML = "Selected execution: " + $(this).text();
         localStorage.setItem('workflow-uri', $(this).val());
         $("#collapseSummaryLegend ul").children().remove();

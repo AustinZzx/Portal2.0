@@ -165,6 +165,7 @@ function addProcessInfo(processURI, inputsArray, outputsArray) {
 
 		if ($("ul.nav li.active").index() == 0) {
 			$($newPanel.find("#DownloadImage-variable-link")).hide();
+			$($newPanel.find("#Visualize-variable-link")).hide();
 		}
 		else {
 			var code = 'select ?software from <urn:x-arq:UnionGraph> where {<'
@@ -287,6 +288,7 @@ function addVariableInfo(variableURI, usedBy, generatedBy, variableType, artifac
 		if ($("ul.nav li.active").index() == 0) {
 			variableValue.setAttribute("style", "display:none");
 			$($newPanel.find("#DownloadImage-variable-link")).hide();
+			$($newPanel.find("#Visualize-variable-link")).hide();
 		}
 		else {
 				if(artifactValues.bindings[0]!=null)  {
@@ -295,6 +297,7 @@ function addVariableInfo(variableURI, usedBy, generatedBy, variableType, artifac
 				}
 				else  {
 					$($newPanel.find("#DownloadImage-variable-link")).hide();
+					$($newPanel.find("#Visualize-variable-link")).hide();
 				}
 				//console.log(variablehasvalue);
 				if(typeof variablehasvalue.bindings!='undefined')  {
@@ -466,4 +469,117 @@ function toggleChevron(e) {
 }
 $('#accordion').on('hidden.bs.collapse', toggleChevron);
 $('#accordion').on('shown.bs.collapse', toggleChevron);
+
+$(document).on('click', 'div#compare-data button', function () {
+ 	var arrayArg = [];
+ 	$variables = $('div.variable a#DownloadImage-variable-link').each(function(){
+ 		var variableName = $(this).parent().attr("id");
+ 		var url = $(this).attr('href');
+ 		if (variableName != null && url != null)
+ 		{			
+ 	  		console.log(variableName);
+ 	  		console.log(url);
+ 
+ 	  		metadata = new Object();
+ 	  		metadata.url = url;
+ 	  		metadata.name = variableName;
+ 	  		arrayArg.push(metadata);
+ 		}		
+ 	});
+ 
+ 	var jsonArray = JSON.stringify(arrayArg);
+ 
+ 	//window.open("http://localhost?data="+encodeURIComponent(jsonArray));
+ 	window.open("https://yjy0625.github.io/workflow-visualization/compare-datasets/?data="+encodeURIComponent(jsonArray));
+});
+	
+	$(document).on('click', 'button#Compare-variable-link', function () 
+{			
+    var arrayArg = [];
+	var url = $(this).siblings('a#DownloadImage-variable-link').attr("href");
+	var variableName = $(this).parent().attr("id");
+	var workflowURI = getWorkflowURI();
+	if (variableName != null && url != null)
+	{			
+  		console.log(variableName);
+  		console.log(url);
+
+  		metadata = new Object();
+  		metadata.url = url;
+  		metadata.name = variableName;
+  		metadata.execution_id = executions_id[0];
+  		arrayArg.push(metadata);
+  		var variable2URI;
+
+		// fetch data URL
+		var code = 'PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>'
+				+ 'select ?location from <urn:x-arq:UnionGraph> where {'
+ 				+ '?variable1URI <http://www.opmw.org/ontology/correspondsToTemplateArtifact> ?templateArtifact.'
+ 				+ '?variable1URI <http://www.opmw.org/ontology/hasLocation> "'+ url +'"^^xsd:anyURI.'
+ 				+ '?variable2URI <http://www.opmw.org/ontology/correspondsToTemplateArtifact> ?templateArtifact.'
+ 				+ '?variable2URI <http://openprovenance.org/model/opmo#account> <'+ $("#execution_select").val() +'>.'
+ 				+ '?variable2URI <http://www.opmw.org/ontology/hasLocation> ?location }';
+ 		var codeURI = endpoint + 'query?query=' + escape(code) + '&format=json'; 
+		$.get(codeURI, function(data,status)  {
+			//console.log(data);
+			variable2URI = data.results.bindings[0].location.value;
+			console.log(variable2URI);
+		});  	
+
+  		metadata2 = new Object();
+  		metadata2.url = variable2URI;
+  		metadata2.name = variableName;
+  		metadata2.execution_id = $("#execution_select").val();
+  		arrayArg.push(metadata2);
+
+  		var jsonArray = JSON.stringify(arrayArg);
+
+		window.open("https://yjy0625.github.io/workflow-visualization/compare-datasets/?data="+encodeURIComponent(jsonArray));
+
+	}		
+});
+
+$(document).on('click', 'button#Compare-Executions', function()
+{	
+	var arrayArg = [];
+	var variableName = $(this).parent().attr("id");
+	var workflowURI = getWorkflowURI();
+	var url = $(this).attr('href');
+	if (variableName != null && url != null)
+	{			
+  		console.log(variableName);
+  		console.log(url);
+
+  		metadata = new Object();
+  		metadata.url = url;
+  		metadata.name = variableName;
+  		metadata.execution_id = executions_id[0];
+  		arrayArg.push(metadata);
+
+  		
+		var dataURI = workflowURI+"_"+variableName.toUpperCase();
+		console.log(dataURI);
+		// fetch data URL
+		var code = 'select ?software from <urn:x-arq:UnionGraph> where {<'
+				+ portURI +'> <http://www.opmw.org/ontology/hasLocation> ?location }'
+ 		var codeURI = endpoint + 'query?query=' + escape(code) + '&format=json'; 
+ 		$.get(codeURI, function(data,status)  {
+			//console.log(data);
+ 			url = data.results.bindings[0].location.value;
+ 			console.log(url);
+ 		});  	
+ 
+   		metadata2 = new Object();
+  		metadata2.url = url;
+  		metadata2.name = variableName;
+  		metadata2.execution_id = executions_id[1];
+  		arrayArg.push(metadata2);
+	}		
+
+	var jsonArray = JSON.stringify(arrayArg);
+
+	window.open("https://yjy0625.github.io/workflow-visualization/compare-datasets/?data="+encodeURIComponent(jsonArray));
+
+ });
+
 
