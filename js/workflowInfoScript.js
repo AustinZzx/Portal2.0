@@ -493,8 +493,7 @@ $(document).on('click', 'div#compare-data button', function () {
  	window.open("https://yjy0625.github.io/workflow-visualization/compare-datasets/?data="+encodeURIComponent(jsonArray));
 });
 	
-	$(document).on('click', 'button#Compare-variable-link', function () 
-{			
+	$(document).on('click', 'button#Compare-variable-link', function () {			
     var arrayArg = [];
 	var url = $(this).siblings('a#DownloadImage-variable-link').attr("href");
 	var variableName = $(this).parent().attr("id");
@@ -503,13 +502,16 @@ $(document).on('click', 'div#compare-data button', function () {
 	{			
   		console.log(variableName);
   		console.log(url);
+  		//window.open("https://yjy0625.github.io/workflow-visualization/visualize-result/?url="+encodeURIComponent(url)+"&name="+encodeURIComponent(name)); 
+
 
   		metadata = new Object();
   		metadata.url = url;
   		metadata.name = variableName;
-  		metadata.execution_id = executions_id[0];
+  		//metadata.execution_id = executions_id[0];
+  		metadata.execution_id = $("#selction").val();
   		arrayArg.push(metadata);
-  		var variable2URI;
+  		//var variable2URI;
 
 		// fetch data URL
 		var code = 'PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>'
@@ -521,8 +523,9 @@ $(document).on('click', 'div#compare-data button', function () {
  				+ '?variable2URI <http://www.opmw.org/ontology/hasLocation> ?location }';
  		var codeURI = endpoint + 'query?query=' + escape(code) + '&format=json'; 
 		$.get(codeURI, function(data,status)  {
-			//console.log(data);
-			variable2URI = data.results.bindings[0].location.value;
+			console.log(data);
+			//variable2URI = data.results.bindings[0].location.value;
+			var variable2URI = data.results.bindings[0].location.value;
 			console.log(variable2URI);
 		});  	
 

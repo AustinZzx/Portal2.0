@@ -358,8 +358,7 @@ table {
 	margin-left: 16px;
 }
 
-#RDFImage-link1, #RDFImage-link2, #DownloadTemplate-link, #RDFImage-variable-link, #DownloadImage-variable-link, #Visualize-variable-link {
-    float: left;
+#RDFImage-link1, #RDFImage-link2, #DownloadTemplate-link, #RDFImage-variable-link, #DownloadImage-variable-link, #Visualize-variable-link, #Compare-variable-link{    float: left;
     position: relative;
 }
 
@@ -391,7 +390,7 @@ table {
     color: #085fe2;
 }
 
-#RDFLink1, #RDFLink2, #RDFVariableLink, #DownloadLink, #VisualizeLink, #DownloadTemplateLink {
+#RDFLink1, #RDFLink2, #RDFVariableLink, #DownloadLink, #VisualizeLink, #CompareLink, #DownloadTemplateLink {
     display: none;
     width: 120px;
     background-color: white;

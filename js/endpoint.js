@@ -87,6 +87,27 @@ function getExecutionNumber(workflowURI, currentelement) {
     });
 }
 
+var getexampleWorkflowDataLandingPage = func(workflowURI, i){
+    var sparql = 'select ?step ?input ?output from <urn:x-arq:UnionGraph> where{{?step <http://www.opmw.org/ontology/isStepOfTemplate> <' +
+      workflowURI + '>.?step <http://www.opmw.org/ontology/uses> ?input.}UNION{?step <http://www.opmw.org/ontology/isStepOfTemplate> <' +
+      workflowURI +'>.?output <http://www.opmw.org/ontology/isGeneratedBy> ?step.}}';
+    var endpointURI = endpoint + "query?query=" + escape(sparql) + "&format=json";   
+    $.ajax({
+        url: endpointURI,
+        type: 'GET',
+        cache: false,
+        timeout: 30000,
+        error: function(){
+        },
+        success: function(res) {
+            $($(".spinner")[i]).hide();
+            $($(".visualization-container")[i]).show();
+            renderVisualization(res, false, i+1);
+        }
+    })
+
+}
+
 var getexampleWorkflowData = function(workflowURI, i) {
     var sparql = 'select ?step ?input ?output from <urn:x-arq:UnionGraph> where{{?step <http://www.opmw.org/ontology/isStepOfTemplate> <' +
       workflowURI + '>.?step <http://www.opmw.org/ontology/uses> ?input.}UNION{?step <http://www.opmw.org/ontology/isStepOfTemplate> <' +
@@ -128,7 +149,8 @@ function getRamdomWorkflow()  {
             exampleworkflowURI.push(selected[i].uri);
             var encryptedURI = CryptoJS.AES.encrypt(selected[i].uri, "csci401-Spring-2017");                
             currentexample.find(".overlay").attr("href", 'workflow-main.html?uri='+encryptedURI);
-            getexampleWorkflowData(selected[i].uri, i);
+            //getexampleWorkflowData(selected[i].uri, i);
+            getexampleWorkflowData()
         }
         localStorage.setItem("exampleworkflowURI", exampleworkflowURI);
         $("#slideleft").on("click", function() {

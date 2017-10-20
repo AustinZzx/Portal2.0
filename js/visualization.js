@@ -334,7 +334,7 @@ var translateVisualization = function() {
 
 var addTraces = function(traces) {
     var select = document.getElementById("dropdown-content");
-    var execution = document.getElementById("execution_select");
+   // var execution = document.getElementById("execution_select");
 
     //populates selection box options
     for(var i = 0; i < traces.length; i++) {
@@ -342,15 +342,23 @@ var addTraces = function(traces) {
         var el = document.createElement("a");
         el.textContent = stripNameFromURI(opt.execution.value);
         el.value = opt.execution.value;
-        select.appendChild(el);
-        if (i == 0)
-        {
-            execution.appendChild(el);
-            console.log(el);
-        }
+        // select.appendChild(el);
+        // if (i == 0)
+        // {
+        //     execution.appendChild(el);
+        //     console.log(el);
+        // }
         
-        executions_id[el.textContent] = opt.execution.value;
+        // executions_id[el.textContent] = opt.execution.value;
+
+        select.appendChild(el);
+
+
     }
+
+    var $options = $("#selection > option").clone().slice(1);
+    $("#execution_select").append($options);
+    
     $("#dropdown-content a").on('click', function() {
         selected_execution_id = select.options[select.selectedIndex].text;
         document.getElementById('execution-name').innerHTML = "Selected execution: " + $(this).text();
@@ -421,6 +429,7 @@ var setupNodeOnClick = function (svg, vis) {
         var node = vis.node(id);
         
         svg.selectAll('g.node ellipse').each(function() {
+            console.log("id" + id);
             d3.select(this)
                 .attr('stroke', null)
                 .attr('stroke-width', null);
