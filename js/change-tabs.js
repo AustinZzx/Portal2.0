@@ -28,7 +28,7 @@ $(document).ready(function() {
         document.getElementById('RDFImage-bar1').style.display = "none";
         document.getElementById('RDFImage-bar2').style.display = "inline-block";
         document.getElementById('compare-data').style.display = "block";
-+       document.getElementById('executions').style.display = "block";
+        document.getElementById('executions').style.display = "block";
 });
     
     $(".workflowTab").click(function() {

@@ -87,7 +87,7 @@ function getExecutionNumber(workflowURI, currentelement) {
     });
 }
 
-var getexampleWorkflowDataLandingPage = func(workflowURI, i){
+var getexampleWorkflowDataLandingPage = function(workflowURI, i) {
     var sparql = 'select ?step ?input ?output from <urn:x-arq:UnionGraph> where{{?step <http://www.opmw.org/ontology/isStepOfTemplate> <' +
       workflowURI + '>.?step <http://www.opmw.org/ontology/uses> ?input.}UNION{?step <http://www.opmw.org/ontology/isStepOfTemplate> <' +
       workflowURI +'>.?output <http://www.opmw.org/ontology/isGeneratedBy> ?step.}}';
@@ -104,7 +104,7 @@ var getexampleWorkflowDataLandingPage = func(workflowURI, i){
             $($(".visualization-container")[i]).show();
             renderVisualization(res, false, i+1);
         }
-    })
+    });
 
 }
 

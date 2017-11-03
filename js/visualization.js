@@ -282,24 +282,24 @@ var renderVisualization = function (res, isTrace, isIndexpage) {
     */
     var formatInputs = function(vis, callback) {
         if(isIndexpage)  {
-            workflowURI = exampleworkflowURI[isIndexpage-1];
+            workflowURI = exampleworkflowURI[isIndexpage-1];        
+            getInputs(workflowURI, function (inputs) {
+                for (var i = 0; i < inputs.length; i++) {
+                    var nodeIndex = putNodeIndices[inputs[i].input.value];
+                    var newLabel = vis.node(nodeIndex).label;
+                    var newURI = vis.node(nodeIndex).uri;
+                    vis.setNode(nodeIndex, { 
+                        label: newLabel,
+                        labelStyle: "fill: #FFF",
+                        shape: 'customInputEllipse',
+                        style: "fill: #336633;",
+                        uri: newURI,
+                        type: 'input'
+                    });
+                }
+                callback(vis);
+            })
         }
-        getInputs(workflowURI, function (inputs) {
-            for (var i = 0; i < inputs.length; i++) {
-                var nodeIndex = putNodeIndices[inputs[i].input.value];
-                var newLabel = vis.node(nodeIndex).label;
-                var newURI = vis.node(nodeIndex).uri;
-                vis.setNode(nodeIndex, { 
-                    label: newLabel,
-                    labelStyle: "fill: #FFF",
-                    shape: 'customInputEllipse',
-                    style: "fill: #336633;",
-                    uri: newURI,
-                    type: 'input'
-                });
-            }
-            callback(vis);
-        })
     }
 
     /*
