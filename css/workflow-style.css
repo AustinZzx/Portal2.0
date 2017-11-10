@@ -406,8 +406,7 @@ table {
     border:1px #085fe2 solid;
 }
 
-#RDFLink1::after, #RDFLink2::after, #RDFVariableLink::after, #DownloadLink::after, #VisualizeLink, #DownloadTemplateLink::after{
-    content: " ";
+#RDFLink1::after, #RDFLink2::after, #RDFVariableLink::after, #DownloadLink::after, #VisualizeLink, #CompareLink, #DownloadTemplateLink::after{    content: " ";
     position: absolute;
     bottom: 100%; /* At the top of the tooltip */
     left: 50%;
