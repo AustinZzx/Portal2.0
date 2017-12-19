@@ -87,6 +87,8 @@ function getExecutionNumber(workflowURI, currentelement) {
     });
 }
 
+
+
 var getexampleWorkflowData = function(workflowURI, i) {
     var sparql = 'select ?step ?input ?output from <urn:x-arq:UnionGraph> where{{?step <http://www.opmw.org/ontology/isStepOfTemplate> <' +
       workflowURI + '>.?step <http://www.opmw.org/ontology/uses> ?input.}UNION{?step <http://www.opmw.org/ontology/isStepOfTemplate> <' +
@@ -119,10 +121,15 @@ function getRamdomWorkflow()  {
         else {
             var selected = shuffled;
             gallerylength = selected.length;
+            console.log(gallerylength);
         }
+
+        console.log(gallerylength);
         leftindex = 0;
-        for(var i=0;i<gallerylength;++i) {
+        for(var i=0;i<gallerylength; i++) {
+            console.log(i);
             var currentexample = $($(".workflowexample")[i]);
+            console.log(currentexample);
             currentexample.find("figcaption").html(selected[i].label + "<br>");
             getExecutionNumber(selected[i].uri, currentexample.find("figcaption"));
             exampleworkflowURI.push(selected[i].uri);
